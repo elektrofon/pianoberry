@@ -14,7 +14,7 @@ Tweaked for ~1.5ms latency at 96kHz sample rate.
 1. Download the [latest image](https://github.com/elektrofon/pianoberry/releases/latest)
 2. Flash the image to a microSD card using [Raspberry Pi Imager](https://www.raspberrypi.org/software/)
 3. Insert the microSD card into the Raspberry PI 5 with a Pisound sound card
-4. Connect a MIDI keyboard to the Pisound MIDI input
+4. Connect a MIDI keyboard to the Pisound MIDI input or via USB
 5. Play!
 
 ## Activating Pianoteq licence
@@ -31,7 +31,7 @@ pianoteq_serial=xxxx-xxxx-xxxx-xxxx
 pianoteq_initial_preset=NY Steinway D Jazz
 ```
 7. Eject the SD card and insert it into the Raspberry PI 5 with a Pisound sound card
-8. Connect a MIDI keyboard to the Pisound MIDI input
+8. Connect a MIDI keyboard to the Pisound MIDI input or via USB
 9. Play!
 
 **Activation of the licence requires internet connection on first boot**.  

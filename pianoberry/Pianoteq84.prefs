@@ -3,11 +3,10 @@
 	<VALUE name="latest_news_check" val="2040-12-28T17:16:30Z"/>
 	<VALUE name="welcome-done-demo" val="1"/>
 	<VALUE name="audio-setup">
-		<DEVICESETUP deviceType="ALSA" audioOutputDeviceName="pisound, PS-30FX3RJ snd-soc-dummy-dai-0; Direct hardware device without any conversions" audioInputDeviceName="" audioDeviceRate="96000.0" audioDeviceBufferSize="128" forceStereo="0"/>
+		<DEVICESETUP deviceType="ALSA" audioOutputDeviceName="default" audioInputDeviceName="" audioDeviceRate="96000.0" audioDeviceBufferSize="128" forceStereo="0"/>
 	</VALUE>
 	<VALUE name="midi-setup">
 		<midi-setup listen-all="1"/>
-		<device name="pisound MIDI PS-30FX3RJ"/>
 	</VALUE>
 	<VALUE name="voices" val="48"/>
 	<VALUE name="voices_thresh" val="100"/>
