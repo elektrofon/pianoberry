@@ -21,9 +21,9 @@ Tweaked for ~1.5ms latency at 96kHz sample rate.
 
 1. Download the [latest image](https://github.com/elektrofon/pianoberry/releases/latest)
 2. Flash the image to a microSD card using [Raspberry Pi Imager](https://www.raspberrypi.org/software/)
-3. Download the licenced Pianoteq Linux Aarch64 binary from your Modartt account
+3. Download the licenced Pianoteq Linux Aarch64 (arm-64bit) binary from your Modartt account
 4. Plug the SD card into your computer. You should see an external drive named `pianoberry`
-5. Place your Linux Aarch64 Pianoteq 8 binary on the root of the `pianoberry` drive
+5. Place your Linux Aarch64 (arm-64bit) Pianoteq 8 or Pianoteq 9 binary on the root of the `pianoberry` drive
 6. Open the `config.txt` file on the root of the `pianoberry` drive. Scroll down to the bottom and add your serial number and initial preset:
 ```
 [PIANOBERRY]
@@ -49,8 +49,8 @@ Open an issue in this repository instead.
 
 ### Building
 
-1. Download the Pianoteq 8 Standard trial for Linux from the [Pianoteq website](https://www.modartt.com/try?file=pianoteq_linux_trial_v840.7z)
-2. Place the Linux Aarch64 Pianoteq 8 trial binary in the `pianoteq` directory
+1. Download the [Pianoteq 8](https://www.modartt.com/try?file=pianoteq_linux_trial_v840.7z) or [Pianoteq 9](https://www.modartt.com/try?file=pianoteq_trial_v903.tar.xz) Standard trial for Linux from the Pianoteq website
+2. Place the Linux Aarch64 (arm-64bit) Pianoteq 8 trial binary in the `pianoteq` directory
 3. Build:
 
 ```bash

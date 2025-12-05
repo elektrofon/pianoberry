@@ -29,6 +29,7 @@ PACKAGES="
 	llvm19-lib.tcz
 	mesa.tcz
 	pcre2.tcz
+	fontconfig.tcz
 "
 
 echo "Building with:"
@@ -181,16 +182,15 @@ zcat ../p1/rootfs-piCore64-15.0.gz | cpio -i
 mkdir -p root/.config/Modartt
 mkdir -p root/.local/share/Modartt/Pianoteq/MidiMappings
 
-install -m 644 ../Pianoteq84.prefs root/.config/Modartt/
+install -m 644 ../Pianoteq.prefs root/.config/Modartt/Pianoteq84.prefs
+install -m 644 ../Pianoteq.prefs root/.config/Modartt/Pianoteq90.prefs
 install -m 644 ../midi-map.ptm root/.local/share/Modartt/Pianoteq/MidiMappings/
 
 # Add Pianoteq binary
-install -m 777 "../Pianoteq 8" usr/bin/
-chmod +x "usr/bin/Pianoteq 8"
+install -m 777 "../Pianoteq "[89] usr/bin/Pianoteq
 
 # Add Pianoteq startup script
 install -m 777 ../startup.sh usr/bin/
-chmod +x "usr/bin/startup.sh"
 
 mkdir -p /pianoberry/pianoberry/mydata
 cd /pianoberry/pianoberry/mydata
