@@ -88,11 +88,11 @@ cd /pianoberry/pianoberry
 
 unzip /build/src/piCore64-15.0.0.zip
 
-dd bs=512 seek=471039 of=pianoberry.img < /dev/null
+dd bs=512 seek=532479 of=pianoberry.img < /dev/null
 parted --script pianoberry.img \
 	mklabel msdos \
-	mkpart primary fat32 8192s 243711s \
-	mkpart primary ext4 243712s 100%
+	mkpart primary fat32 8192s 305151s \
+	mkpart primary ext4 305152s 100%
 
 TARGET_LOOP=$(kpartx -av pianoberry.img | awk 'NR==1 {print substr($3, 1, length($3)-2)}')
 
