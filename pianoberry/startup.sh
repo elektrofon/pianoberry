@@ -46,6 +46,20 @@ if [ ! -f "/opt/.activated" ]; then
 	fi
 fi
 
+# Create Pianoteq user presets folder if it doesn't exist
+sudo mkdir -p "/root/.local/share/Modartt/Pianoteq/Presets/My Presets/"
+
+# Check if there are any .fxp files in the boot partition and copy them to the Pianoteq user presets folder
+find /mnt/mmcblk0p1 -maxdepth 1 -type f -name "*.fxp" | while read -r fxp_file; do
+	filename=$(basename "$fxp_file")
+	sudo install -m 644 "$fxp_file" "/root/.local/share/Modartt/Pianoteq/Presets/My Presets/$filename"
+done
+
+# Check if there is a midi-map.ptm file in the boot partition and copy it to the Pianoteq installation folder
+if [ -f "/mnt/mmcblk0p1/midi-map.ptm" ]; then
+	sudo install -m 644 "/mnt/mmcblk0p1/midi-map.ptm" "/usr/bin/midi-map/midi-map.ptm"
+fi
+
 umount /mnt/mmcblk0p1
 
 sudo "/usr/bin/Pianoteq" --headless --preset "$PIANOTEQ_INITIAL_PRESET" --midimapping "midi-map"

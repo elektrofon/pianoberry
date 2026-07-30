@@ -39,15 +39,15 @@ echo "  initial preset: ${PIANOTEQ_INITIAL_PRESET}"
 mkdir -p /build/src
 cd /build/src
 
-function download_file() {
+download_file() {
 	if [ ! -f "${1##*/}" ]; then
 		echo "Downloading ${1}"
 		wget ${1}
-		if [[ $? -ne 0 ]]; then
+		if [ $? -ne 0 ]; then
 			echo "Failed to download ${1}"
 			rm -f ${1##*/}
 
-			if [[ $2 -eq 1 ]]; then
+			if [ $2 -eq 1 ]; then
 				return 1
 			else
 				exit 1
@@ -58,10 +58,10 @@ function download_file() {
 	fi
 }
 
-function download_tcz() {
+download_tcz() {
 	download_file ${URL}/15.x/aarch64/tcz/${1}.tree 1
 
-	if [[ $? -ne 0 ]]; then
+	if [ $? -ne 0 ]; then
 		download_file ${URL}/15.x/aarch64/tcz/${1}
 		return
 	fi
@@ -129,11 +129,11 @@ df -h p1
 df -h p2
 
 # Set hostname
-echo -n " pianoberry" > p1/cmdline.txt
+printf ' pianoberry' > p1/cmdline.txt
 
 cd /build/src
 
-function install_tcz() {
+install_tcz() {
 	# Some tczs don't have a .tree file
 	if [ ! -f "${1}.tree" ]; then
 		echo "Installing ${1}"
