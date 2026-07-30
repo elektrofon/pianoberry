@@ -8,7 +8,8 @@ RUN apk add --no-cache \
 		multipath-tools \
 		parted \
 		e2fsprogs-extra \
-		rsync
+		rsync \
+		zip
 
 VOLUME /build
 

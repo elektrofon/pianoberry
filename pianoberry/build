@@ -237,5 +237,11 @@ umount p1 p2 source_p1 source_p2
 kpartx -d /dev/${SOURCE_LOOP}
 kpartx -d /dev/${TARGET_LOOP}
 
-# Copy the image to the host
-cp pianoberry.img /build/pianoberry.img
+# Delete previous zip if it exists,
+# we don't want to append to the existing archive
+if [ -f "/build/pianoberry.img.zip" ]; then
+    rm /build/pianoberry.img.zip
+fi
+
+# Compress and copy the image to the host
+zip -9 /build/pianoberry.img.zip pianoberry.img
