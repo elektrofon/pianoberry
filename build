@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 FORCE_REBUILD=0
 
-function print_help() {
+print_help() {
 	printf "Usage: $0 [options]\n"
 	printf "Options:\n"
 	printf "  --force-rebuild            Force rebuild of the pianoberry-build image.\n"
