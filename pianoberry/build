@@ -30,6 +30,8 @@ PACKAGES="
 	mesa.tcz
 	pcre2.tcz
 	fontconfig.tcz
+	libEGL.tcz
+	curl.tcz
 "
 
 echo "Building with:"
@@ -59,26 +61,26 @@ download_file() {
 }
 
 download_tcz() {
-	download_file ${URL}/15.x/aarch64/tcz/${1}.tree 1
+	download_file ${URL}/17.x/aarch64/tcz/${1}.tree 1
 
 	if [ $? -ne 0 ]; then
-		download_file ${URL}/15.x/aarch64/tcz/${1}
+		download_file ${URL}/17.x/aarch64/tcz/${1}
 		return
 	fi
 
 	for file in `cat ${1}.tree`; do
-		download_file ${URL}/15.x/aarch64/tcz/${file}
+		download_file ${URL}/17.x/aarch64/tcz/${file}
 
 		# Check if the file ends with "v8.tcz"
 		if echo "${file}" | grep -q "v8.tcz$"; then
 			# Replace "v8.tcz" with "v8-16k.tcz" and download the additional file
 			additional_file=$(echo "${file}" | sed 's/v8\.tcz$/v8-16k.tcz/')
-			download_file ${URL}/15.x/aarch64/tcz/${additional_file}
+			download_file ${URL}/17.x/aarch64/tcz/${additional_file}
 		fi
 	done
 }
 
-download_file ${URL}/15.x/aarch64/releases/RPi/piCore64-15.0.0.zip
+download_file ${URL}/17.x/aarch64/releases/RPi/piCore64-17.0.0.zip
 
 for package in $PACKAGES; do
 	download_tcz $package
@@ -86,7 +88,7 @@ done
 
 cd /pianoberry/pianoberry
 
-unzip /build/src/piCore64-15.0.0.zip
+unzip /build/src/piCore64-17.0.0.zip
 
 dd bs=512 seek=532479 of=pianoberry.img < /dev/null
 parted --script pianoberry.img \
@@ -106,7 +108,7 @@ mount /dev/mapper/${TARGET_LOOP}p2 p2
 
 sync
 
-SOURCE_LOOP=$(kpartx -av piCore64-15.0.0.img | awk 'NR==1 {print substr($3, 1, length($3)-2)}')
+SOURCE_LOOP=$(kpartx -av piCore64-17.0.0.img | awk 'NR==1 {print substr($3, 1, length($3)-2)}')
 
 mkdir -p source_p1 source_p2
 
@@ -119,7 +121,7 @@ rsync -a source_p2/ p2/
 sync
 
 echo "Source image info:"
-fdisk -l piCore64-15.0.0.img
+fdisk -l piCore64-17.0.0.img
 df -h source_p1
 df -h source_p2
 
@@ -168,7 +170,7 @@ for package in $PACKAGES; do
 	echo $package >> /pianoberry/pianoberry/p2/tce/onboot.lst
 done
 
-echo alsa-modules-6.6.47-piCore-v8-16k.tcz >> /pianoberry/pianoberry/p2/tce/onboot.lst
+echo alsa-modules-6.18.37-piCore-v8-16k.tcz >> /pianoberry/pianoberry/p2/tce/onboot.lst
 
 # Disable internal sound card
 sed -i 's/dtparam=audio=on/#dtparam=audio=on/g' /pianoberry/pianoberry/p1/config.txt
@@ -176,7 +178,7 @@ sed -i 's/dtparam=audio=on/#dtparam=audio=on/g' /pianoberry/pianoberry/p1/config
 # Unpack the rootfs
 mkdir -p /pianoberry/pianoberry/tempdir
 cd /pianoberry/pianoberry/tempdir
-zcat ../p1/rootfs-piCore64-15.0.gz | cpio -i
+zstdcat ../p1/rootfs-piCore64-17.0.zst | cpio -i
 
 # Add Pianoteq configs
 mkdir -p root/.config/Modartt
@@ -206,7 +208,7 @@ cd /pianoberry/pianoberry
 cp mydata.tgz p2/tce/
 
 # Load pianoberry rootfs instead of the original one
-sed -i 's/rootfs-piCore64-15\.0/rootfs-pianoberry/g' p1/config.txt
+sed -i 's/rootfs-piCore64-17\.0/rootfs-pianoberry/g' p1/config.txt
 
 # Add Pianoberry default configs to pi/config.txt
 cat <<EOF >> p1/config.txt
@@ -220,11 +222,10 @@ echo "Creating the image. This may take a while..."
 
 # Repack the rootfs
 cd tempdir
-find . | cpio -o -H newc | gzip > ../rootfs-pianoberry.gz
+find . | cpio -o -H newc | zstd -19 -T0 > ../rootfs-pianoberry.zst
 cd /pianoberry/pianoberry
-advdef -z4 rootfs-pianoberry.gz
-rm -f p1/rootfs-piCore64-15.0.gz
-cp rootfs-pianoberry.gz p1/
+rm -f p1/rootfs-piCore64-17.0.zst
+cp rootfs-pianoberry.zst p1/
 
 sync
 
