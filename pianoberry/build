@@ -80,7 +80,7 @@ download_tcz() {
 	done
 }
 
-download_file ${URL}/17.x/aarch64/releases/RPi/piCore64-17.0.0.zip
+download_file ${URL}/17.x/aarch64/release/RPi/piCore64-17.0.img.gz
 
 for package in $PACKAGES; do
 	download_tcz $package
