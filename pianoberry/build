@@ -88,7 +88,7 @@ done
 
 cd /pianoberry/pianoberry
 
-gunzip /build/src/piCore64-17.0.0.zip
+gunzip /build/src/piCore64-17.0.img.gz
 
 dd bs=512 seek=532479 of=pianoberry.img < /dev/null
 parted --script pianoberry.img \
@@ -108,7 +108,7 @@ mount /dev/mapper/${TARGET_LOOP}p2 p2
 
 sync
 
-SOURCE_LOOP=$(kpartx -av piCore64-17.0.0.img | awk 'NR==1 {print substr($3, 1, length($3)-2)}')
+SOURCE_LOOP=$(kpartx -av piCore64-17.0.img | awk 'NR==1 {print substr($3, 1, length($3)-2)}')
 
 mkdir -p source_p1 source_p2
 
@@ -121,7 +121,7 @@ rsync -a source_p2/ p2/
 sync
 
 echo "Source image info:"
-fdisk -l piCore64-17.0.0.img
+fdisk -l piCore64-17.0.img
 df -h source_p1
 df -h source_p2
 
