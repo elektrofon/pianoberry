@@ -2,6 +2,7 @@
 <PROPERTIES>
 	<VALUE name="latest_news_check" val="2040-12-28T17:16:30Z"/>
 	<VALUE name="welcome-done-demo" val="1"/>
+	<VALUE name="welcome-done" val="1"/>
 	<VALUE name="audio-setup">
 		<DEVICESETUP deviceType="ALSA" audioOutputDeviceName="default" audioInputDeviceName="" audioDeviceRate="96000.0" audioDeviceBufferSize="128" forceStereo="0"/>
 	</VALUE>

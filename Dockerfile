@@ -9,7 +9,9 @@ RUN apk add --no-cache \
 		parted \
 		e2fsprogs-extra \
 		rsync \
-		zip
+		zip \
+		zstd \
+		gzip
 
 VOLUME /build
 
