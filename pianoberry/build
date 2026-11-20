@@ -88,7 +88,7 @@ done
 
 cd /pianoberry/pianoberry
 
-gunzip /build/src/piCore64-17.0.img.gz
+gunzip -c /build/src/piCore64-17.0.img.gz > piCore64-17.0.img
 
 dd bs=512 seek=532479 of=pianoberry.img < /dev/null
 parted --script pianoberry.img \
